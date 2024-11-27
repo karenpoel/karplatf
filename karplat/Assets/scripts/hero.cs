@@ -4,14 +4,23 @@ using UnityEngine;
 
 public class hero : MonoBehaviour  {
     public float speed;
+    private Animator anim;
+ Rigidbody2D rb;
+ Prived void Update()
 
-Rigidbody2D rb;
-
-void Start () {
+ void Start () {
     rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
      }
 
-
+    private States State
+    {
+        get { return (States)anim.GetInteger("state"); }
+        set { anim.SetInteger("state",(int)value); }
+            
+            
+    }
+     
     void FixedUpdate () {
         float x = Input.GetAxis("Horizontal");
 
@@ -35,3 +44,9 @@ void Start () {
     
 }
 
+public enum States
+{
+    idle,
+    run,
+    jump
+}
