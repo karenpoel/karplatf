@@ -1,52 +1,74 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class hero : MonoBehaviour  {
-    public float speed;
-    private Animator anim;
- Rigidbody2D rb;
- Prived void Update()
-
- void Start () {
-    rb = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
-     }
-
-    private States State
-    {
-        get { return (States)anim.GetInteger("state"); }
-        set { anim.SetInteger("state",(int)value); }
-            
-            
-    }
-     
-    void FixedUpdate () {
-        float x = Input.GetAxis("Horizontal");
-
-        Vector3 move = new Vector3(x * speed, rb.velocity.y, 0f);
-        rb.velocity = move;
-        }
-        
-
-    
-    
-           
-           
-
-    
-
-    
-      
-       
-       
-        
-    
-}
-
-public enum States
+using UnityEngine.Scripting.APIUpdating;
+public class hero : MonoBehaviour
 {
-    idle,
-    run,
-    jump
+    [SerializeField] private float _speed;
+    private Vector3 _input;
+
+    private Rigidbody2D _rigidbody;
+    private CharacterAnimations _animations;
+    [SerializeField] private SpriteRenderer _Idle_0;
+
+    private void Start()
+    {
+        _rigidbody = GetComponent<Rigidbody2D>();
+        _animations = GetComponentInChildren<CharacterAnimations>();
+    }
+
+    private void FixedUpdate()
+    {
+        Move();
+    }
+
+
+    private void Move()
+    {
+        _input = new Vector2(Input.GetAxis("Horizontal"), 0);
+        transform.position += _input * _speed * Time.deltaTime;
+        _isMoving = _input.x != 0 ? true : false;
+
+        if(_input.x != 0)
+        {
+            _Idle_0.flipX = _input.x > 0 ? false : true;
+        }
+
+
+        _animations.IsMoving = _isMoving;
+
+
+
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
