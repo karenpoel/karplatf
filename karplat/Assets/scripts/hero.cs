@@ -6,7 +6,7 @@ public class hero : MonoBehaviour
 {
     [SerializeField] private float _speed;
     private Vector3 _input;
-
+    private bool _isMoving;
     private Rigidbody2D _rigidbody;
     private CharacterAnimations _animations;
     [SerializeField] private SpriteRenderer _Idle_0;
@@ -29,7 +29,7 @@ public class hero : MonoBehaviour
         transform.position += _input * _speed * Time.deltaTime;
         _isMoving = _input.x != 0 ? true : false;
 
-        if(_input.x != 0)
+        if(_isMoving)
         {
             _Idle_0.flipX = _input.x > 0 ? false : true;
         }
