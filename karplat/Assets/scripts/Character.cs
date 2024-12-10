@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
 public class Character : MonoBehaviour
@@ -10,12 +11,12 @@ public class Character : MonoBehaviour
     [SerializeField] private LayerMask groundMask;
 
 
-
+    public GameManager _gameManager;
     private Vector3 _input;
     private bool _isMoving;
     private bool _IsGrounded;
     private bool _IsFlying;
-
+    
     private Rigidbody2D _rigidbody;
     private CharacterAnimations _animations;
     [SerializeField] private SpriteRenderer _Idle_0;
@@ -70,11 +71,23 @@ public class Character : MonoBehaviour
             _IsGrounded = false;
         }
     }
-    public override void GetDamage()
+
+    private void OnCollision2D(Collision2D collision)
     {
-        lives -= 1;
-        Debug.Log(lives);
+        if(collision.gameObject.CompareTag("Enemy"))
+        {
+            Die();
+        }
     }
+
+    private void Die()
+    {
+        
+        Debug.Log("Игрок умер!");
+       
+    }
+
+
     private void Move()
     {
         _input = new Vector2(Input.GetAxis("Horizontal"), 0);
