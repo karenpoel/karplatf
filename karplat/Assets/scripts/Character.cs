@@ -21,7 +21,7 @@ public class Character : MonoBehaviour
     private CharacterAnimations _animations;
     [SerializeField] private SpriteRenderer _Idle_0;
 
-    public static Character Instance { get; set; }
+    
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -72,11 +72,10 @@ public class Character : MonoBehaviour
         }
     }
 
-    public override void GetDamage()
-    {
-        lives -= 1;
-        Debug.Log(lives);
-    }
+    
+    
+        
+   
    
         
         
