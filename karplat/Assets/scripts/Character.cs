@@ -11,7 +11,7 @@ public class Character : MonoBehaviour
     [SerializeField] private LayerMask groundMask;
 
 
-    public GameManager _gameManager;
+    
     private Vector3 _input;
     private bool _isMoving;
     private bool _IsGrounded;
@@ -72,20 +72,24 @@ public class Character : MonoBehaviour
         }
     }
 
-    private void OnCollision2D(Collision2D collision)
+    public override void GetDamage()
     {
-        if(collision.gameObject.CompareTag("Enemy"))
-        {
-            Die();
-        }
+        lives -= 1;
+        Debug.Log(lives);
     }
-
-    private void Die()
-    {
+   
         
-        Debug.Log("Игрок умер!");
+        
+            
+        
+    
+
+    
+    
+        
+        
        
-    }
+    
 
 
     private void Move()
